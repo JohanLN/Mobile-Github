@@ -5,12 +5,12 @@ export const storeUser = async (user, userRepos) => {
     try {
         User.githubUser = user.githubUser === undefined ? true : true;
         User.login = user.login;
-        User.myRepositories = userRepos;
+        User.repositories = userRepos;
         User.numberOfRepos = user.public_repos;
-        User.myGithubUrl = user.html_url;
-        User.myFollowers = user.followers;
-        User.myBio = user.bio;
-        User.myAvatar = user.avatar_url;
+        User.githubUrl = user.html_url;
+        User.followers = user.followers;
+        User.bio = user.bio;
+        User.avatar = user.avatar_url;
         
         await AsyncStorage.setItem('User', JSON.stringify(User));
     } catch (error) {

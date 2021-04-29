@@ -1,12 +1,12 @@
 const User = {
     githubUser: true,
     login: "",
-    myRepositories: [],
+    repositories: [],
     numberOfRepos: 0,
-    myAvatar: "",
-    myBio: "",
-    myFollowers: 0,
-    myGithubUrl: ""
+    avatar: "",
+    bio: "",
+    followers: 0,
+    githubUrl: ""
 }
 
 export default User;

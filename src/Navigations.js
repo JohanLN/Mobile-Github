@@ -28,7 +28,15 @@ const Navigations = () =>
 }
 
 const TabNavigation = ({navigation}) => (
-    <Tab.Navigator headerMode={"none"} initialRouteName="Home">
+    <Tab.Navigator 
+        headerMode={"none"}
+        initialRouteName="Home"
+        tabBarOptions={{
+            activeTintColor: "#EE6C4D",
+            activeBackgroundColor: "#1e242f",
+            inactiveBackgroundColor: "#1e242f",
+            inactiveTintColor: "#4b6d9b"
+        }}>
         <Tab.Screen 
             name="FindUser" 
             component={FindUserNavigation} 
@@ -63,21 +71,21 @@ const TabNavigation = ({navigation}) => (
 )
 
 const HomeNavigation = ({navigation}) => (
-    <HomeStack.Navigator initialRouteName="Home">
+    <HomeStack.Navigator headerMode={"none"} initialRouteName="Home">
         <HomeStack.Screen name="Home" component={Home} />
         <HomeStack.Screen name="test" component={test} />
     </HomeStack.Navigator>
 )
 
 const FindUserNavigation = ({navigation}) => (
-    <FindUserStack.Navigator initialRouteName="FindUser">
+    <FindUserStack.Navigator headerMode={"none"} initialRouteName="FindUser">
         <FindUserStack.Screen name="FindUser" component={FindUser} />
         <FindUserStack.Screen name="test" component={test} />
     </FindUserStack.Navigator>
 )
 
 const ProfileNavigation = ({navigation}) => (
-    <ProfileStack.Navigator initialRouteName="Profile">
+    <ProfileStack.Navigator headerMode={"none"} initialRouteName="Profile">
         <ProfileStack.Screen name="Profile" component={Profile} />
         <ProfileStack.Screen name="test" component={test} />
     </ProfileStack.Navigator>
