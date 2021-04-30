@@ -5,10 +5,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useColorScheme } from 'react-native';
 import Home from './views/Home';
-import test from './views/Test';
 import FindUser from './views/FindUser';
 import Profile from './views/Profile';
 import Login from './views/Login';
+import RepositoryView from './views/RepositoryView';
+import UserView from './views/UserView';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
@@ -103,21 +104,21 @@ const TabNavigation = ({navigation}) => (
 const HomeNavigation = ({navigation}) => (
     <HomeStack.Navigator headerMode={"none"} initialRouteName="Home">
         <HomeStack.Screen name="Home" component={Home} />
-        <HomeStack.Screen name="test" component={test} />
+        <HomeStack.Screen name="RepositoryView" component={RepositoryView} />
     </HomeStack.Navigator>
 )
 
 const FindUserNavigation = ({navigation}) => (
     <FindUserStack.Navigator headerMode={"none"} initialRouteName="FindUser">
         <FindUserStack.Screen name="FindUser" component={FindUser} />
-        <FindUserStack.Screen name="test" component={test} />
+        <FindUserStack.Screen name="UserView" component={UserView} />
     </FindUserStack.Navigator>
 )
 
 const ProfileNavigation = ({navigation}) => (
     <ProfileStack.Navigator headerMode={"none"} initialRouteName="Profile">
         <ProfileStack.Screen name="Profile" component={Profile} />
-        <ProfileStack.Screen name="test" component={test} />
+        <ProfileStack.Screen name="RepositoryView" component={RepositoryView} />
     </ProfileStack.Navigator>
 )
 

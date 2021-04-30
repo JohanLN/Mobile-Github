@@ -50,6 +50,7 @@ class Login extends React.Component {
                             <View style={styles.inputContainer}>
                                 <Text style={[styles.labels, {color: colors.text}]}>Enter your github login</Text>
                                 <TextInput onChangeText={(text) => this.setState({githubLogin: text})}
+                                    placeholder="Your github login"
                                     onFocus={() => {this.setState({inputBorder: "#EE6C4D", errorMessage: ""})}} 
                                     onBlur={() => this.setState({inputBorder: "#4b6d9b"})} 
                                     style={[styles.textInput, {borderColor: this.state.inputBorder}]} />

@@ -6,7 +6,7 @@ export const searchtUsersByName = async (username) => {
     await axios.get("https://api.github.com/search/users?q=" + username + "&per_page=10")
         .then(response => {
             console.log("OK"),
-            result = response.data;
+            result = response.data.items;
         })
         .catch((err) => {
             throw new Error(err.message);

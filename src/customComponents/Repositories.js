@@ -39,7 +39,7 @@ export class ClassRepositories extends React.Component {
 
         return (
 
-            <TouchableOpacity style={[styles.container, {backgroundColor: colors.card}]} onPress={() => console.log("tap")}>
+            <TouchableOpacity style={[styles.container, {backgroundColor: colors.card}]} onPress={() => this.props.navigation.push('RepositoryView')}>
                 <Text style={{fontSize: 20, fontWeight: 'bold', color: colors.clickableText}} >{this.repos.name}</Text>
                 <Text style={{color: colors.text, fontSize: 12, fontStyle: 'italic', marginTop: "3%"}}>{this.repos.description}</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -47,7 +47,7 @@ export class ClassRepositories extends React.Component {
                         <Entypo name="code" size={20} color={this.colorByLanguage(this.repos.language)} />
                         <Text style={{color: colors.text, fontSize: 15, marginLeft: 10}}>{this.repos.language}</Text>
                     </View>
-                    <Text style={{color: colors.text, fontSize: 12, fontStyle: 'italic'}}>Owner : {this.repos.owner.login}</Text>
+                    <Text style={{color: colors.text, fontSize: 12, fontStyle: 'italic', marginTop: "3%"}}>Owner : {this.repos.owner.login}</Text>
                 </View>
             </TouchableOpacity>
 

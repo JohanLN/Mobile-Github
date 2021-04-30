@@ -26,14 +26,14 @@ class ClassUserProfile extends React.Component {
                     <View style={styles.header}>                    
                         <View style={styles.userUtils}>
                             <Image 
-                                source={{uri: this.user.avatar}}
+                                source={{uri: this.user.avatar_url}}
                                 style={{width: 120, height: 120,  resizeMode: 'contain', borderRadius: 100, marginLeft: "10%"}}
                             />
                             <View style={styles.userDescription}>
                                 <Text style={{fontSize: 15, color: colors.important, fontWeight: 'bold'}}>{this.user.login}</Text>
                                 <Text  numberOfLines={1}  style={{fontSize: 13, color: colors.text, fontStyle: 'italic'}}>{this.user.bio}</Text>
-                                <TouchableOpacity onPress={() => Linking.openURL(this.user.githubUrl)}>
-                                    <Text style={{color: colors.clickableText, fontStyle: 'italic'}}>{this.user.githubUrl}</Text>
+                                <TouchableOpacity onPress={() => Linking.openURL(this.user.htmlèurl)}>
+                                    <Text style={{color: colors.clickableText, fontStyle: 'italic'}}>{this.user.html_url}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -43,7 +43,7 @@ class ClassUserProfile extends React.Component {
                                 <Text style={{fontSize: 12, color: colors.important}}>Followers</Text>
                             </View>
                             <View style={styles.userCounters}>
-                                <Text style={{fontSize: 30, color: colors.important}}>{this.user.numberOfRepos}</Text>
+                                <Text style={{fontSize: 30, color: colors.important}}>{this.user.public_repos}</Text>
                                 <Text style={{fontSize: 12, color: colors.important}}>Public repos</Text>
                             </View>
                         </View>
@@ -53,7 +53,7 @@ class ClassUserProfile extends React.Component {
                             data={this.user.repositories}
                             keyExtractor={(item, index) => index}
                             renderItem={({item, index}) => (
-                                <Repositories repos={item} />
+                                <Repositories repos={item} navigation={this.props.navigation} />
                             )}
                         />
                     </View>

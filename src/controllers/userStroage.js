@@ -3,15 +3,14 @@ import User from '../models/User';
 
 export const storeUser = async (user, userRepos) => {
     try {
-        console.log(user.githubUser)
         User.githubUser = user.githubUser === undefined || user.githubUser ? true : false;
         User.login = user.login;
         User.repositories = userRepos;
-        User.numberOfRepos = user.public_repos;
-        User.githubUrl = user.html_url;
+        User.public_repos = user.public_repos;
+        User.html_url = user.html_url;
         User.followers = user.followers;
         User.bio = user.bio;
-        User.avatar = user.avatar_url;
+        User.avatar_url = user.avatar_url;
         
         await AsyncStorage.setItem('User', JSON.stringify(User));
     } catch (error) {

@@ -24,7 +24,7 @@ class Profile extends React.Component {
                 {this.state.user.githubUser === undefined ?
                     <ActivityIndicator size="large" color="#EE6C4D" />
                 :
-                    <UserProfile user={this.state.user} />
+                    <UserProfile user={this.state.user} navigation={this.props.navigation} />
                 }
             </View>
         )
