@@ -12,43 +12,53 @@ class ClassUserProfile extends React.Component {
 
     render() {
         const { colors } = this.props.theme;
-
+        console.log(this.user.githubUser)
         return (
-            <View style={styles.container}>
-                <View style={styles.header}>                    
-                    <View style={styles.userUtils}>
-                        <Image 
-                            source={{uri: this.user.avatar}}
-                            style={{width: 120, height: 120,  resizeMode: 'contain', borderRadius: 100, marginLeft: "10%"}}
+            <View  style={styles.container}>
+                {!this.user.githubUser ? 
+                <View  style={{flex: 1, justifyContent: 'center', paddingHorizontal: "10%"}}>
+                    <Text style={{color: colors.text, fontSize: 16, textAlign: 'center'}}>You have to be connected with a github account to access to this functionality. Please try to connect with a github account !</Text>
+                    <Image source={require("../../public/images/githuberror.png")} style={{resizeMode: 'contain', alignSelf: 'center', width: "50%", marginTop: "20%"}} />
+                    <Text style={{color: colors.text, fontSize: 12, textAlign: 'center'}}>Unauthorized : 401</Text>
+                </View>
+                :
+                <View style={styles.container}>
+                    <View style={styles.header}>                    
+                        <View style={styles.userUtils}>
+                            <Image 
+                                source={{uri: this.user.avatar}}
+                                style={{width: 120, height: 120,  resizeMode: 'contain', borderRadius: 100, marginLeft: "10%"}}
+                            />
+                            <View style={styles.userDescription}>
+                                <Text style={{fontSize: 15, color: colors.important, fontWeight: 'bold'}}>{this.user.login}</Text>
+                                <Text  numberOfLines={1}  style={{fontSize: 13, color: colors.text, fontStyle: 'italic'}}>{this.user.bio}</Text>
+                                <TouchableOpacity onPress={() => Linking.openURL(this.user.githubUrl)}>
+                                    <Text style={{color: colors.clickableText, fontStyle: 'italic'}}>{this.user.githubUrl}</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        <View style={styles.userInfos}>
+                            <View style={styles.userCounters}>
+                                <Text style={{fontSize: 30, color: colors.important}}>{this.user.followers}</Text>
+                                <Text style={{fontSize: 12, color: colors.important}}>Followers</Text>
+                            </View>
+                            <View style={styles.userCounters}>
+                                <Text style={{fontSize: 30, color: colors.important}}>{this.user.numberOfRepos}</Text>
+                                <Text style={{fontSize: 12, color: colors.important}}>Public repos</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.repositories}>
+                        <FlatList 
+                            data={this.user.repositories}
+                            keyExtractor={(item, index) => index}
+                            renderItem={({item, index}) => (
+                                <Repositories repos={item} />
+                            )}
                         />
-                        <View style={styles.userDescription}>
-                            <Text style={{fontSize: 15, color: colors.important, fontWeight: 'bold'}}>{this.user.login}</Text>
-                            <Text  numberOfLines={1}  style={{fontSize: 13, color: colors.text, fontStyle: 'italic'}}>{this.user.bio}</Text>
-                            <TouchableOpacity onPress={() => Linking.openURL(this.user.githubUrl)}>
-                                <Text style={{color: colors.clickableText, fontStyle: 'italic'}}>{this.user.githubUrl}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={styles.userInfos}>
-                        <View style={styles.userCounters}>
-                            <Text style={{fontSize: 30, color: colors.important}}>{this.user.followers}</Text>
-                            <Text style={{fontSize: 12, color: colors.important}}>Followers</Text>
-                        </View>
-                        <View style={styles.userCounters}>
-                            <Text style={{fontSize: 30, color: colors.important}}>{this.user.numberOfRepos}</Text>
-                            <Text style={{fontSize: 12, color: colors.important}}>Public repos</Text>
-                        </View>
                     </View>
                 </View>
-                <View style={styles.repositories}>
-                    <FlatList 
-                        data={this.user.repositories}
-                        keyExtractor={(item, index) => index}
-                        renderItem={({item, index}) => (
-                            <Repositories repos={item} />
-                        )}
-                    />
-                </View>
+                }
             </View>
         )
     }
@@ -62,7 +72,7 @@ export function UserProfile(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
     },
     header: {
         height: "35%",

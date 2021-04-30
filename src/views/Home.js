@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, Button, ActivityIndicator, Text } from 'react-native';
 import { getSpeceficUser, getUserRepos } from '../network';
-import { storeUser, getUser } from '../controllers'
+import { storeUser, getUser, deleteUser } from '../controllers'
 import { useTheme } from '@react-navigation/native';
 
 class Home extends React.Component {
@@ -15,7 +15,8 @@ class Home extends React.Component {
 
     componentDidMount = async () => {
         this.setState({user: await getUser()})
-        if (this.state.user.githubUser) {
+        console.log('sjdiojcsopi', this.state.user)
+        if (this.state.user.githubUser && this.state.user.bio === undefined) {
             if (!this.state.user.myBio) {
                 const user = await getSpeceficUser(this.state.user.login);
                 const userRepos = await getUserRepos(this.state.user.login);
@@ -25,8 +26,8 @@ class Home extends React.Component {
         }
     }
 
-    componentWillUnmount = () => {
-        console.log("unmount")
+    componentWillUnmount = async () => {
+        await deleteUser();
     }
 
     render() {

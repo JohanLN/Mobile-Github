@@ -15,14 +15,6 @@ class Profile extends React.Component {
 
     componentDidMount = async () => {
         this.setState({user: await getUser()})
-        if (this.state.user.githubUser) {
-            if (!this.state.user.myBio) {
-                const user = await getSpeceficUser(this.state.user.login);
-                const userRepos = await getUserRepos(this.state.user.login);
-                await storeUser(user, userRepos);
-                this.setState({user: await getUser()})
-            }
-        }
     }
 
     render() {

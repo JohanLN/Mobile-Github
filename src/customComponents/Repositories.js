@@ -40,7 +40,7 @@ export class ClassRepositories extends React.Component {
         return (
 
             <TouchableOpacity style={[styles.container, {backgroundColor: colors.card}]} onPress={() => console.log("tap")}>
-                <Text style={{fontSize: 20, fontWeight: 'blod', color: colors.clickableText}} >{this.repos.name}</Text>
+                <Text style={{fontSize: 20, fontWeight: 'bold', color: colors.clickableText}} >{this.repos.name}</Text>
                 <Text style={{color: colors.text, fontSize: 12, fontStyle: 'italic', marginTop: "3%"}}>{this.repos.description}</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                     <View style={{flexDirection: 'row', marginTop: "3%"}}>

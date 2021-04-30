@@ -3,7 +3,8 @@ import User from '../models/User';
 
 export const storeUser = async (user, userRepos) => {
     try {
-        User.githubUser = user.githubUser === undefined ? true : true;
+        console.log(user.githubUser)
+        User.githubUser = user.githubUser === undefined || user.githubUser ? true : false;
         User.login = user.login;
         User.repositories = userRepos;
         User.numberOfRepos = user.public_repos;
