@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, Linking, StyleSheet, AsyncStorage } from 'react-native';
 import { Repositories } from '../customComponents';
+import { useTheme } from '@react-navigation/native';
 
-export class UserProfile extends React.Component {
+class ClassUserProfile extends React.Component {
 
     constructor(props) {
         super(props);
@@ -10,7 +11,8 @@ export class UserProfile extends React.Component {
     }
 
     render() {
-        console.log(this.user);
+        const { colors } = this.props.theme;
+
         return (
             <View style={styles.container}>
                 <View style={styles.header}>                    
@@ -20,21 +22,21 @@ export class UserProfile extends React.Component {
                             style={{width: 120, height: 120,  resizeMode: 'contain', borderRadius: 100, marginLeft: "10%"}}
                         />
                         <View style={styles.userDescription}>
-                            <Text style={{fontSize: 15, color: '#EE6C4D', fontWeight: 'bold'}}>{this.user.login}</Text>
-                            <Text style={{fontSize: 13, color: 'grey', fontStyle: 'italic'}}>{this.user.bio}</Text>
+                            <Text style={{fontSize: 15, color: colors.important, fontWeight: 'bold'}}>{this.user.login}</Text>
+                            <Text  numberOfLines={1}  style={{fontSize: 13, color: colors.text, fontStyle: 'italic'}}>{this.user.bio}</Text>
                             <TouchableOpacity onPress={() => Linking.openURL(this.user.githubUrl)}>
-                                <Text style={{color:"#4b6d9b", fontStyle: 'italic'}}>{this.user.githubUrl}</Text>
+                                <Text style={{color: colors.clickableText, fontStyle: 'italic'}}>{this.user.githubUrl}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.userInfos}>
                         <View style={styles.userCounters}>
-                            <Text style={{fontSize: 30, color: '#EE6C4D'}}>{this.user.followers}</Text>
-                            <Text style={{fontSize: 12, color: '#EE6C4D'}}>Followers</Text>
+                            <Text style={{fontSize: 30, color: colors.important}}>{this.user.followers}</Text>
+                            <Text style={{fontSize: 12, color: colors.important}}>Followers</Text>
                         </View>
                         <View style={styles.userCounters}>
-                            <Text style={{fontSize: 30, color: '#EE6C4D'}}>{this.user.numberOfRepos}</Text>
-                            <Text style={{fontSize: 12, color: '#EE6C4D'}}>Public repos</Text>
+                            <Text style={{fontSize: 30, color: colors.important}}>{this.user.numberOfRepos}</Text>
+                            <Text style={{fontSize: 12, color: colors.important}}>Public repos</Text>
                         </View>
                     </View>
                 </View>
@@ -52,19 +54,25 @@ export class UserProfile extends React.Component {
     }
 }
 
+export function UserProfile(props) {
+    const theme = useTheme();
+  
+    return <ClassUserProfile {...props} theme={theme} />;
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1e242f'
     },
     header: {
         height: "35%",
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        backgroundColor: "#1e242f",
         borderBottomWidth: 0.5,
-        borderColor: "#4b6d9b"
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        borderColor: '#4b6d9b'
     },
     repositories: {
         flex: 1,

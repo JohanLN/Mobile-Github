@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { createStackNavigator } from '@react-navigation/stack'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useColorScheme } from 'react-native';
 import Home from './views/Home';
 import test from './views/Test';
 import FindUser from './views/FindUser';
@@ -15,10 +16,39 @@ const FindUserStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const LoginStack = createStackNavigator();
 
+const MyDarkTheme = {
+    dark: true,
+    colors: {
+        background: '#1e242f',
+        clickableText: "#4b6d9b",
+        text: '#98C1D9',
+        border: '#4b6d9b',
+        important: '#EE6C4D',
+        card: '#202632'
+    }
+}
+
+const MyLightTheme = {
+    dark: false,
+    colors: {
+        background: '#E8EAEE',
+        clickableText: "#4b6d9b",
+        text: '#839EC3',
+        border: '#4b6d9b',
+        important: '#EE6C4D',
+        card: '#DCDFE5'
+    }
+}
+
+let selectedTheme;
+
 const Navigations = () =>
 {
+    const scheme = useColorScheme();
+    selectedTheme = scheme === 'dark' ? MyDarkTheme : MyLightTheme
+
     return(
-        <NavigationContainer>
+        <NavigationContainer theme={scheme === 'dark' ? MyDarkTheme : MyLightTheme}>
             <LoginStack.Navigator headerMode={"none"} initialRouteName="Login">
                 <LoginStack.Screen name="Login" component={Login} />
                 <LoginStack.Screen name="Tab" component={TabNavigation}/>
@@ -32,17 +62,17 @@ const TabNavigation = ({navigation}) => (
         headerMode={"none"}
         initialRouteName="Home"
         tabBarOptions={{
-            activeTintColor: "#EE6C4D",
-            activeBackgroundColor: "#1e242f",
-            inactiveBackgroundColor: "#1e242f",
-            inactiveTintColor: "#4b6d9b"
+            activeTintColor: '#EE6C4D',
+            activeBackgroundColor: selectedTheme.background,
+            inactiveBackgroundColor: selectedTheme.background,
+            inactiveTintColor: '#4b6d9b'
         }}>
         <Tab.Screen 
             name="FindUser" 
             component={FindUserNavigation} 
             options={{
                 tabBarLabel: "Find user",
-                tabBarIcon: ({ color, size }) => (
+                tabBarIcon: ({ color }) => (
                     <MaterialIcons name="supervised-user-circle" color={color} size={30} />
                 )
             }} 
@@ -52,7 +82,7 @@ const TabNavigation = ({navigation}) => (
             component={HomeNavigation} 
             options={{
                 tabBarLabel: "Home",
-                tabBarIcon: ({ color, size }) => (
+                tabBarIcon: ({ color }) => (
                     <MaterialIcons name="home" color={color} size={30} />
                 )
             }} 
@@ -62,7 +92,7 @@ const TabNavigation = ({navigation}) => (
             component={ProfileNavigation} 
             options={{
                 tabBarLabel: "Profile",
-                tabBarIcon: ({ color, size }) => (
+                tabBarIcon: ({ color }) => (
                     <MaterialIcons name="account-circle" color={color} size={30} />
                 )
             }} 

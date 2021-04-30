@@ -2,6 +2,7 @@ import * as React from 'react';
 import { View, Button, ActivityIndicator, Text } from 'react-native';
 import { getSpeceficUser, getUserRepos } from '../network';
 import { storeUser, getUser } from '../controllers'
+import { useTheme } from '@react-navigation/native';
 
 class Home extends React.Component {
 
@@ -29,11 +30,14 @@ class Home extends React.Component {
     }
 
     render() {
+        const { colors } = this.props.theme;
+
         return (
             <View style={{flex: 1, justifyContent: 'center'}}>
+                <Text style={{color: colors.text}}>coucou</Text>
                 {this.state.user.githubUser === undefined ?
-                    <ActivityIndicator size="large" color="#326da8" />
-                :
+                    <ActivityIndicator size="large" color="#EE6C4D" />
+                    :
                     <Button onPress={async () => {
                         this.props.navigation.push("test")}
                     } accessibilityLabel="Hello" title="Home" />
@@ -43,4 +47,8 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
+export default function(props) {
+    const theme = useTheme();
+  
+    return <Home {...props} theme={theme} />;
+}

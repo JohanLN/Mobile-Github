@@ -28,9 +28,9 @@ class Profile extends React.Component {
     render() {
 
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, justifyContent: 'center'}}>
                 {this.state.user.githubUser === undefined ?
-                    <ActivityIndicator size="large" color="#326da8" />
+                    <ActivityIndicator size="large" color="#EE6C4D" />
                 :
                     <UserProfile user={this.state.user} />
                 }

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { storeUser } from '../controllers';
+import { useTheme } from '@react-navigation/native';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,25 +14,28 @@ export default class Login extends React.Component {
     
 
     render() {
+        const { colors } = this.props.theme;
 
         return (
             <View style={styles.container}>
-                <Text style={styles.h1}>MobileGithub app</Text>
-                <KeyboardAvoidingView behavior="height" style={styles.formContainer}>
+                <Text style={[styles.h1, {color: colors.important}]}>MobileGithub app</Text>
+                <KeyboardAvoidingView behavior="height" style={[styles.formContainer, {backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1}]}>
                     <View style={styles.inputContainer}>
-                        <Text style={styles.labels}>Enter your github login</Text>
-                        <TextInput onChangeText={(text) => this.setState({githubLogin: text})} style={styles.textInput} />
+                        <Text style={[styles.labels, {color: colors.text}]}>Enter your github login</Text>
+                        <TextInput onChangeText={(text) => this.setState({githubLogin: text})} style={[styles.textInput, {borderColor: colors.border}]} />
                     </View>
-                    <Button onPress={async () => {
+                    <TouchableOpacity onPress={async () => {
                         await storeUser({githubUser: true, login: this.state.githubLogin}, []);
                         this.props.navigation.push("Tab")}
-                    } title="Login" />
-                    <Text style={styles.labels}>Or</Text>
+                    } style={{backgroundColor: colors.border, borderRadius: 100, paddingVertical: "3%"}}>
+                        <Text style={[styles.clickableText, {color: colors.card}]}>Login</Text>
+                    </TouchableOpacity>
+                    <Text style={[styles.labels, {color: colors.text}]}>Or</Text>
                     <TouchableOpacity onPress={async () => {
                         await storeUser({githubUser: false}, []);
                         this.props.navigation.push("Tab")}
-                    }>
-                        <Text style={styles.clickableText}>Continue as a guest !</Text>
+                    }  style={{borderColor: colors.border, borderWidth: 0.5, borderRadius: 100, paddingVertical: "3%"}}>
+                        <Text style={[styles.clickableText, {color: colors.clickableText}]}>Continue as a guest !</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             </View>
@@ -40,10 +44,15 @@ export default class Login extends React.Component {
     }
 }
 
+export default function(props) {
+    const theme = useTheme();
+  
+    return <Login {...props} theme={theme} />;
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f2f2f2'
     },
     h1: {
         fontWeight: 'bold',
@@ -58,16 +67,11 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         paddingHorizontal: "8%",
         justifyContent: 'space-evenly',
-        backgroundColor: 'white'
-    },
-    inputContainer:{
-        height: "15%",
-        justifyContent: "space-between",
     },
     textInput: {
-        borderWidth: 0.2,
+        marginTop: 20,
+        borderWidth: 0.5,
         borderRadius: 20,
-        color: 'black'
     },
     labels: {
         fontSize: 12,
@@ -76,8 +80,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     clickableText: {
-        textAlign: 'center',
+        alignSelf: 'center',
         fontSize: 16,
-        color: 'blue'
     }
 })
