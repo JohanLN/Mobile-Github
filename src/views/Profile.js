@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { View, Button, ActivityIndicator } from 'react-native';
-import { getSpeceficUser, getUserRepos } from '../network';
-import { storeUser, getUser } from '../controllers'
+import { getUser } from '../controllers'
 import { UserProfile } from '../customComponents';
 
 class Profile extends React.Component {

@@ -32,7 +32,7 @@ class Login extends React.Component {
         this.setState({user: await getUser()});
         this.setState({loading: false})
         if (this.state.user !== null) {
-            this.props.navigation.push('Tab');
+            this.props.navigation.navigate('Tab');
         }
     }
 

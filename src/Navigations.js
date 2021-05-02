@@ -62,6 +62,7 @@ const TabNavigation = ({navigation}) => (
     <Tab.Navigator 
         headerMode={"none"}
         initialRouteName="Home"
+        backBehaviour = "Home"
         tabBarOptions={{
             activeTintColor: '#EE6C4D',
             activeBackgroundColor: selectedTheme.background,
