@@ -14,3 +14,18 @@ export const searchReposByName = async (repoName) => {
 
         return result;
 }
+
+export const getSpeceficRepo = async (ownerName, repoName) => {
+    let result;
+
+    await axios.get(`https://api.github.com/repos/${ownerName}/${repoName}`)
+        .then(response => {
+            console.log("OK");
+            result = response.data;
+        })
+        .catch((err) => {
+            throw new Error(err.message);
+        })
+
+        return result;
+}
