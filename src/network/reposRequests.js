@@ -5,7 +5,6 @@ export const searchReposByName = async (repoName) => {
 
     await axios.get("https://api.github.com/search/repositories?q=" + repoName + "&per_page=10")
         .then(response => {
-            console.log("OK");
             result = response.data.items;
         })
         .catch((err) => {
@@ -20,7 +19,34 @@ export const getSpeceficRepo = async (ownerName, repoName) => {
 
     await axios.get(`https://api.github.com/repos/${ownerName}/${repoName}`)
         .then(response => {
-            console.log("OK");
+            result = response.data;
+        })
+        .catch((err) => {
+            throw new Error(err.message);
+        })
+
+        return result;
+}
+
+export const getReposContrib = async (ownerName, repoName) => {
+    let result;
+
+    await axios.get(`https://api.github.com/repos/${ownerName}/${repoName}/contributors`)
+        .then(response => {
+            result = response.data;
+        })
+        .catch((err) => {
+            throw new Error(err.message);
+        })
+
+        return result;
+}
+
+export const getReposIssues = async (ownerName, repoName) => {
+    let result;
+
+    await axios.get(`https://api.github.com/repos/${ownerName}/${repoName}/issues`)
+        .then(response => {
             result = response.data;
         })
         .catch((err) => {

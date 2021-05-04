@@ -10,6 +10,9 @@ import Profile from './views/Profile';
 import Login from './views/Login';
 import RepositoryView from './views/RepositoryView';
 import UserView from './views/UserView';
+import ContribView from './views/ContribView';
+import IssuesView from './views/IssuesView';
+import FollowersView from './views/FollowersView';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
@@ -106,6 +109,9 @@ const HomeNavigation = ({navigation}) => (
     <HomeStack.Navigator headerMode={"none"} initialRouteName="Home">
         <HomeStack.Screen name="Home" component={Home} />
         <HomeStack.Screen name="RepositoryView" component={RepositoryView} />
+        <HomeStack.Screen name="UserView" component={UserView} />
+        <HomeStack.Screen name="ContribView" component={ContribView} />
+        <HomeStack.Screen name="IssuesView" component={IssuesView} />
     </HomeStack.Navigator>
 )
 
@@ -114,6 +120,9 @@ const FindUserNavigation = ({navigation}) => (
         <FindUserStack.Screen name="FindUser" component={FindUser} />
         <FindUserStack.Screen name="UserView" component={UserView} />
         <FindUserStack.Screen name="RepositoryView" component={RepositoryView} />
+        <FindUserStack.Screen name="IssuesView" component={IssuesView} />
+        <FindUserStack.Screen name="ContribView" component={ContribView} />
+        
     </FindUserStack.Navigator>
 )
 
@@ -121,6 +130,10 @@ const ProfileNavigation = ({navigation}) => (
     <ProfileStack.Navigator headerMode={"none"} initialRouteName="Profile">
         <ProfileStack.Screen name="Profile" component={Profile} />
         <ProfileStack.Screen name="RepositoryView" component={RepositoryView} />
+        <ProfileStack.Screen name="FollowersView" component={FollowersView} />    
+        <ProfileStack.Screen name="UserView" component={UserView} />
+        <ProfileStack.Screen name="IssuesView" component={IssuesView} />
+        <ProfileStack.Screen name="ContribView" component={ContribView} />
     </ProfileStack.Navigator>
 )
 

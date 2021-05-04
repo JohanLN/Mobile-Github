@@ -21,17 +21,17 @@ export class ClassRepositoriesDetails extends React.Component {
 
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <View style={styles.avatarName}>
+                    <TouchableOpacity onPress={() => {this.props.navigation.push('UserView', {login: this.repo.owner.login})}} style={styles.avatarName}>
                         <Image source={{uri: this.repo.owner.avatar_url}} style={{resizeMode: 'contain', width: 120, height: 120, borderRadius: 100, marginTop: '5%'}} />
                         <Text style={{fontSize: 16, color: colors.clickableText, fontWeight: 'bold', textAlign: 'center', marginVertical: "10%"}}>{this.repo.owner.login}</Text>
-                    </View>
-                    <View style={{marginRight: '20%', justifyContent: 'center'}}>
-                        <Text style={{fontSize: 25, textAlign: 'center', color: colors.important, fontWeight: 'bold'}}>{this.repo.name}</Text>
+                    </TouchableOpacity>
+                    <View style={{justifyContent: 'center', marginLeft: "5%"}}>
+                        <Text style={{fontSize: 20, color: colors.important, fontWeight: 'bold', flexWrap: 'wrap'}}>{this.repo.name}</Text>
                         <View style={{marginTop: "20%"}}>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => {this.props.navigation.push('ContribView', {contrib: this.contrib })}}>
                                 <Text style={{fontSize: 16, color: colors.clickableText, marginBottom: '20%'}}>{this.contrib.length} {this.contrib.length > 1 ? "contributors" : "contributor"}</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => {this.props.navigation.push('IssuesView', {issues: this.issues })}}>
                                 <Text style={{fontSize: 16, color: colors.clickableText}}>{this.issues.length} {this.issues.length > 1 ? "issues" : "issue"}</Text>
                             </TouchableOpacity>
                         </View>
@@ -39,9 +39,9 @@ export class ClassRepositoriesDetails extends React.Component {
                 </View>
                 <View style={styles.body}>
                     <Text style={{marginTop: "10%", marginLeft: "5%", color: colors.important}}>Description</Text>
-                    <Text style={{fontSize: 18, color: colors.text, padding: "8%", textAlign: 'center', fontWeight: 'bold', borderWidth: 1, borderColor: colors.border, marginHorizontal: "5%", borderRadius: 10}}>{this.repo.description === null ? "No desription for this repository." : this.repo.description }</Text>
+                    <Text style={{fontSize: 18, color: colors.text, padding: "8%", textAlign: 'center', fontWeight: 'bold', borderWidth: 1, borderColor: 'grey', marginHorizontal: "5%", borderRadius: 10}}>{this.repo.description === null ? "No desription for this repository." : this.repo.description }</Text>
                     <Text style={{marginTop: "10%", marginLeft: "5%", color: colors.important}}>Informations</Text>
-                    <View style={{ height: "40%", justifyContent: 'space-evenly', flexDirection: 'column', borderWidth: 1, borderColor: colors.border, marginHorizontal: "5%", borderRadius: 10, padding: "5%"}}>
+                    <View style={{ height: "40%", justifyContent: 'space-evenly', flexDirection: 'column', borderWidth: 1, borderColor: 'grey', marginHorizontal: "5%", borderRadius: 10, padding: "5%"}}>
                     <View style={{flexDirection: 'row'}}>
                         <MaterialIcons name='public' size={25} color={this.repo.private ? 'red' : 'green'} />
                         <Text style={{fontSize: 15, color: colors.text, marginLeft: "10%"}}>{this.repo.private ? "This is a private repository." : "This is a public repository."}</Text>
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         borderBottomWidth: 0.5,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,

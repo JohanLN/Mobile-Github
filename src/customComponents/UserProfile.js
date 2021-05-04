@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, Linking, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, Linking, StyleSheet } from 'react-native';
 import { Repositories } from '../customComponents';
 import { useTheme } from '@react-navigation/native';
 
@@ -12,7 +12,6 @@ class ClassUserProfile extends React.Component {
 
     render() {
         const { colors } = this.props.theme;
-        console.log(this.user.githubUser)
         return (
             <View  style={styles.container}>
                 {!this.user.githubUser ? 
@@ -30,23 +29,20 @@ class ClassUserProfile extends React.Component {
                                 style={{width: 120, height: 120,  resizeMode: 'contain', borderRadius: 100, marginLeft: "10%"}}
                             />
                             <View style={styles.userDescription}>
-                                <Text style={{fontSize: 15, color: colors.important, fontWeight: 'bold'}}>{this.user.login}</Text>
-                                <Text  numberOfLines={1}  style={{fontSize: 13, color: colors.text, fontStyle: 'italic'}}>{this.user.bio}</Text>
-                                <TouchableOpacity onPress={() => Linking.openURL(this.user.htmlèurl)}>
-                                    <Text style={{color: colors.clickableText, fontStyle: 'italic'}}>{this.user.html_url}</Text>
+                                <Text style={{fontSize: 15, color: colors.important, fontWeight: 'bold', marginVertical: "5%"}}>{this.user.login}</Text>
+                                <Text style={{fontSize: 13, color: colors.text}}>{this.user.public_repos} Public repos</Text>
+                                <Text numberOfLines={1} style={{fontSize: 13, color: colors.text, fontStyle: 'italic'}}>{this.user.bio === null ? "No description." : this.user.bio}</Text>
+                                <TouchableOpacity onPress={() => Linking.openURL(this.user.html_url)}>
+                                    <Text numberOfLines={1} style={{color: colors.clickableText, fontStyle: 'italic', marginVertical: "5%", flexWrap: 'wrap'}}>{this.user.html_url}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={styles.userInfos}>
-                            <View style={styles.userCounters}>
-                                <Text style={{fontSize: 30, color: colors.important}}>{this.user.followers}</Text>
-                                <Text style={{fontSize: 12, color: colors.important}}>Followers</Text>
+                        <TouchableOpacity onPress={() => this.props.navigation.push('FollowersView', {login: this.user.login})} style={styles.userInfos}>
+                            <View style={{marginRight: '20%'}}>
+                                <Text style={{fontSize: 40, color: colors.clickableText, textAlign: 'center'}}>{this.user.followers}</Text>
+                                <Text style={{fontSize: 20, color: colors.clickableText, textAlign: 'center'}}>Followers</Text>
                             </View>
-                            <View style={styles.userCounters}>
-                                <Text style={{fontSize: 30, color: colors.important}}>{this.user.public_repos}</Text>
-                                <Text style={{fontSize: 12, color: colors.important}}>Public repos</Text>
-                            </View>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.repositories}>
                         <FlatList 
@@ -75,14 +71,12 @@ const styles = StyleSheet.create({
         flex: 1
     },
     header: {
-        height: "35%",
+        height: "40%",
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
         borderBottomWidth: 0.5,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
-        borderColor: '#4b6d9b'
+        borderColor: '#4b6d9b',
     },
     repositories: {
         flex: 1,
@@ -90,25 +84,15 @@ const styles = StyleSheet.create({
         marginTop: "5%"
     },
     userInfos: {
-        height: "100%",
-        width: "40%",
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
+        flex: 1,
+        alignSelf: 'center'
     },
     userUtils: {
         justifyContent: 'space-around',
-        height: "100%"
     },
     userDescription: {
-        justifyContent: "space-between",
-        height: "30%",
-        marginLeft: "8%"
+        marginTop: '10%',
+        marginLeft: "8%",
+        width: '70%'
     },
-    userCounters: {
-        alignItems: 'center',
-        height: "40%",
-        justifyContent: 'space-around',
-        marginRight: "15%"
-    }
 })

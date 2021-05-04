@@ -46,6 +46,9 @@ class Home extends React.Component {
     }
 
     searchingRepositories = async () => {
+        this.setState({loading: true})
+        if (this.state.repositories.length > 0)
+            this.setState({repositories: []})
         this.setState({repositories: await searchReposByName(this.state.searchRepos)})
     }
 
@@ -69,7 +72,7 @@ class Home extends React.Component {
 
         return (
             <View style={styles.container}>
-                {this.state.loading === undefined ?
+                {this.state.user.githubUser === undefined ?
                     <ActivityIndicator size="large" color="#EE6C4D" />
                     :
                     <View style={styles.container}>
@@ -92,7 +95,11 @@ class Home extends React.Component {
                             </Modal>
                         {this.state.repositories.length === 0 ? 
                             <View style={styles.container}>
-                                <Text  style={{color: colors.text, fontSize: 16, textAlign: 'center'}}>No repositories found.</Text>
+                                {this.state.loading ? 
+                                    <ActivityIndicator size="large" color="#EE6C4D" />
+                                :
+                                    <Text  style={{color: colors.text, fontSize: 16, textAlign: 'center'}}>No repositories found.</Text>
+                                }
                             </View>
                             : 
                             <View style={styles.listContainer}>
