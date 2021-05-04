@@ -1,15 +1,36 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import { UserProfile } from '../customComponents';
+import { getSpeceficUser, getUserRepos } from '../network';
 
 class UserView extends React.Component {
 
-    render() {
-        const { colors } = this.props.theme;
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {}
+        };
+        
+    }
 
+    componentDidMount = async () => {
+        const user = await getSpeceficUser(this.props.route.params.login);
+        const repos = await getUserRepos(this.props.route.params.login)
+        let userCpy = user;
+        user.repositories = repos;
+        user.githubUser = true;
+        this.setState({user: userCpy});
+    }
+
+    render() {
         return (
             <View style={styles.container}>
-                <Text>UserView</Text>
+                {this.state.user.login === undefined ?
+                    <ActivityIndicator size="large" color="#EE6C4D" />
+                :
+                    <UserProfile user={this.state.user} navigation={this.props.navigation} />
+                }
             </View>
         )
 

@@ -12,9 +12,10 @@ class ClassUsers extends React.Component {
     render() {
         const { colors } = this.props.theme;
 
-        console.log(this.users.avatar_url)
         return (
-            <TouchableOpacity style={styles.container} onPress={() => this.props.navigation.push('UserView')} >
+            <TouchableOpacity style={styles.container} onPress={() => {
+                this.props.navigation.push('UserView', {login: this.users.login})
+            }} >
                 <Image source={{uri: this.users.avatar_url}} style={{width: 60, height: 60,  resizeMode: 'contain', borderRadius: 100}}/>
                 <Text style={{color: colors.text, alignSelf: 'center', marginLeft: "20%"}}>{this.users.login}</Text>
             </TouchableOpacity>

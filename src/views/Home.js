@@ -37,7 +37,7 @@ class Home extends React.Component {
         this.backHandler = BackHandler.addEventListener(
             "hardwareBackPress",
             this.backAction
-          );
+        );
     }
 
     componentWillUnmount = async () => {
@@ -95,7 +95,7 @@ class Home extends React.Component {
                                 <Text  style={{color: colors.text, fontSize: 16, textAlign: 'center'}}>No repositories found.</Text>
                             </View>
                             : 
-                            <View style={styles.container}>
+                            <View style={styles.listContainer}>
                                 <FlatList 
                                     data={this.state.repositories}
                                     keyExtractor={(item, index) => index}
@@ -122,6 +122,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center'
+    },
+    listContainer: {
+        flex: 1,
+        paddingHorizontal: "5%",
+        marginTop: "5%"
     },
     textInput: {
         marginTop: 20,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TextInput, BackHandler } from 'react-native';
 import { searchtUsersByName } from '../network';
 import { useTheme } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -20,6 +20,24 @@ class FindUser extends React.Component {
     searchingUsers = async () => {
         this.setState({users: await searchtUsersByName(this.state.searchUsers)})
     }
+
+    componentDidMount = () => {
+        this.backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            this.backAction
+        );    
+    }
+
+    componentWillUnmount = () => {
+        this.backHandler.remove();
+    }
+
+    backAction = () => {
+        if (this.props.navigation.isFocused()) {
+            this.props.navigation.navigate("Home")
+            return true;
+        }
+      };
 
     render() {
         const { colors } = this.props.theme;

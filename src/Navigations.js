@@ -62,7 +62,7 @@ const TabNavigation = ({navigation}) => (
     <Tab.Navigator 
         headerMode={"none"}
         initialRouteName="Home"
-        backBehaviour = "Home"
+        backBehaviour = "initialRouteName"
         tabBarOptions={{
             activeTintColor: '#EE6C4D',
             activeBackgroundColor: selectedTheme.background,
@@ -113,6 +113,7 @@ const FindUserNavigation = ({navigation}) => (
     <FindUserStack.Navigator headerMode={"none"} initialRouteName="FindUser">
         <FindUserStack.Screen name="FindUser" component={FindUser} />
         <FindUserStack.Screen name="UserView" component={UserView} />
+        <FindUserStack.Screen name="RepositoryView" component={RepositoryView} />
     </FindUserStack.Navigator>
 )
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Button, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, BackHandler } from 'react-native';
 import { getUser } from '../controllers'
 import { UserProfile } from '../customComponents';
 
@@ -14,7 +14,22 @@ class Profile extends React.Component {
 
     componentDidMount = async () => {
         this.setState({user: await getUser()})
+        this.backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            this.backAction
+        );
     }
+
+    componentWillUnmount = () => {
+        this.backHandler.remove();
+    }
+
+    backAction = () => {
+        if (this.props.navigation.isFocused()) {
+            this.props.navigation.navigate("Home")
+            return true;
+        }
+      };
 
     render() {
 
