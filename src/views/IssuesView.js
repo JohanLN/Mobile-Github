@@ -24,7 +24,9 @@ class IssuesView extends React.Component {
         return (
             <View style={styles.container}>
                 {this.state.issues.length <= 0 ?
-                    <ActivityIndicator size="large" color="#EE6C4D" />
+                <View>
+                    <Text style={{color: colors.text, fontSize: 16, textAlign: 'center'}}>No issues.</Text>
+                </View>
                 :
                 <View style={styles.issues}>
                     <Text style={{color: colors.important, fontWeight: 'bold', fontSize: 35, textAlign: 'center'}}>Issues</Text>

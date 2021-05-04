@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet, ActivityIndicator, Text, TextInput, BackHandler, Alert, TouchableOpacity } from 'react-native';
 import { getSpeceficUser, getUserRepos, searchReposByName } from '../network';
-import { storeUser, getUser, deleteUser } from '../controllers'
+import { storeUser, getUser, deleteUser, storeFavoriteRepos, getFavoriteRepos, deleteFavoriteRepos } from '../controllers'
 import { useTheme } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Repositories } from '../customComponents';
@@ -43,6 +43,7 @@ class Home extends React.Component {
     componentWillUnmount = async () => {
         this.backHandler.remove();
         await deleteUser();
+        await deleteFavoriteRepos();
     }
 
     searchingRepositories = async () => {
@@ -83,7 +84,7 @@ class Home extends React.Component {
                             onBlur={() => this.setState({inputBorder: "#4b6d9b"})} 
                             style={[styles.textInput, {borderColor: this.state.inputBorder}]} />
                             <Modal style={[styles.logOutModal, {backgroundColor: colors.border}]} isOpen={this.state.isOpen}>
-                                <Text style={styles.logOutText}>Do you want to log out ?</Text>
+                                <Text style={[styles.logOutText, {color: colors.important}]}>Do you want to log out ?</Text>
                                 <View style={styles.logOutButtonsContainer}>
                                     <TouchableOpacity style={[styles.logOutButtons, {borderColor: colors.card}]} onPress={() => this.setState({isOpen: !this.state.isOpen})}>
                                         <Text style={[styles.clickableText, {color: colors.card}]}>Cancel</Text>
@@ -98,7 +99,7 @@ class Home extends React.Component {
                                 {this.state.loading ? 
                                     <ActivityIndicator size="large" color="#EE6C4D" />
                                 :
-                                    <Text  style={{color: colors.text, fontSize: 16, textAlign: 'center'}}>No repositories found.</Text>
+                                    <Text style={{color: colors.text, fontSize: 16, textAlign: 'center'}}>No repositories found.</Text>
                                 }
                             </View>
                             : 

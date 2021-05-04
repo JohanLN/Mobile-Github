@@ -19,7 +19,7 @@ class RepositoryView extends React.Component {
         const response = await getSpeceficRepo(this.props.route.params.owner, this.props.route.params.repos)
         const issues = await getReposIssues(this.props.route.params.owner, this.props.route.params.repos)
         const contrib = await getReposContrib(this.props.route.params.owner, this.props.route.params.repos);
-        this.setState({repo: response, issues: issues, contrib: contrib});
+        this.setState({repo: response, issues: issues, contributors: contrib});
     }
 
     render() {

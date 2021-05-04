@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, TextInput, BackHandler } from 'react-native';
+import { View, StyleSheet, Text, TextInput, BackHandler, ActivityIndicator } from 'react-native';
 import { searchtUsersByName } from '../network';
 import { useTheme } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -9,15 +9,18 @@ class FindUser extends React.Component {
 
     constructor(props) {
         super(props);
+        this.listEnd = 20
         this.state = {
             user: {},
             inputBorder: '#4b6d9b',
             searchUsers: "",
-            users: []
+            users: [],
+            loading: false
         }
     }
 
     searchingUsers = async () => {
+        this.setState({loading: true})
         this.setState({users: await searchtUsersByName(this.state.searchUsers)})
     }
 
@@ -52,7 +55,11 @@ class FindUser extends React.Component {
                     style={[styles.textInput, {borderColor: this.state.inputBorder}]} />
                 {this.state.users.length === 0 ? 
                     <View style={styles.container}>
-                        <Text  style={{color: colors.text, fontSize: 16, textAlign: 'center'}}>No users found.</Text>
+                        {this.state.loading ? 
+                            <ActivityIndicator size="large" color="#EE6C4D" />
+                        :
+                            <Text style={{color: colors.text, fontSize: 16, textAlign: 'center'}}>No users found.</Text>
+                        }
                     </View>
                     : 
                     <View style={styles.users}>
@@ -62,6 +69,7 @@ class FindUser extends React.Component {
                             renderItem={({item, index}) => (
                                 <Users users={item} navigation={this.props.navigation} />
                             )}
+                            initialNumToRender={100}
                         />
                     </View>                        
                 }

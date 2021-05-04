@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useTheme } from '@react-navigation/native';
+import { deleteFavoriteRepos, getFavoriteRepos, storeFavoriteRepos } from '../controllers';
 
 
 export class ClassRepositories extends React.Component {

@@ -13,6 +13,7 @@ import UserView from './views/UserView';
 import ContribView from './views/ContribView';
 import IssuesView from './views/IssuesView';
 import FollowersView from './views/FollowersView';
+import FavoriteRepos from './views/FavoriteRepos';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
@@ -93,6 +94,17 @@ const TabNavigation = ({navigation}) => (
             }} 
         />
         <Tab.Screen 
+            name="FavoriteRepos" 
+            component={FavoriteNavigation} 
+            options={{
+                tabBarLabel: "Favorite",
+                unmountOnBlur: true,
+                tabBarIcon: ({ color }) => (
+                    <MaterialIcons name="favorite" color={color} size={30} />
+                )
+            }}
+        />
+        <Tab.Screen 
             name="Profile" 
             component={ProfileNavigation} 
             options={{
@@ -124,6 +136,17 @@ const FindUserNavigation = ({navigation}) => (
         <FindUserStack.Screen name="ContribView" component={ContribView} />
         
     </FindUserStack.Navigator>
+)
+
+const FavoriteNavigation = ({navigation}) => (
+    <ProfileStack.Navigator headerMode={"none"} initialRouteName="FavoriteRepos">
+        <ProfileStack.Screen name="FavoriteRepos" component={FavoriteRepos} />
+        <ProfileStack.Screen name="RepositoryView" component={RepositoryView} />
+        <ProfileStack.Screen name="FollowersView" component={FollowersView} />    
+        <ProfileStack.Screen name="UserView" component={UserView} />
+        <ProfileStack.Screen name="IssuesView" component={IssuesView} />
+        <ProfileStack.Screen name="ContribView" component={ContribView} />
+    </ProfileStack.Navigator>
 )
 
 const ProfileNavigation = ({navigation}) => (
