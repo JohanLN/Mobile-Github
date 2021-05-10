@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet, ActivityIndicator, Text, TextInput, BackHandler, Alert, TouchableOpacity } from 'react-native';
 import { getSpeceficUser, getUserRepos, searchReposByName } from '../network';
-import { storeUser, getUser, deleteUser, storeFavoriteRepos, getFavoriteRepos, deleteFavoriteRepos } from '../controllers'
+import { storeUser, getUser, deleteUser, storeFavoriteRepos, getFavoriteRepos, deleteFavoriteRepos, deleteFavoriteUsers } from '../controllers'
 import { useTheme } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Repositories } from '../customComponents';
@@ -44,6 +44,7 @@ class Home extends React.Component {
         this.backHandler.remove();
         await deleteUser();
         await deleteFavoriteRepos();
+        await deleteFavoriteUsers();
     }
 
     searchingRepositories = async () => {

@@ -1,14 +1,44 @@
 import * as React from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, Linking, StyleSheet } from 'react-native';
 import { Repositories } from '../customComponents';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
+import { getFavoriteUsers, storeFavoriteUsers } from '../controllers';
 
 class ClassUserProfile extends React.Component {
 
     constructor(props) {
         super(props);
         this.user = props.user
+        this.state = {
+            isAlreadyFav: false,
+            storage: [],
+            favNow: false
+        }
     }
+
+    favUser = async () => {
+        let storageCpy = this.state.storage
+
+        if (storageCpy === null) {
+            storageCpy.push(this.user)
+        }
+        else if (this.state.isAlreadyFav) {
+            return;
+        }
+        else {
+            storageCpy.push(this.user)
+        }
+        await storeFavoriteUsers(storageCpy)
+        this.setState({favNow: true})
+    }
+
+    componentDidMount = async () => {
+        let storage = await getFavoriteUsers();
+        if (storage !== null)
+            this.setState({storage: storage, isAlreadyFav: storage.find(data => data.id === this.user.id) !== undefined})
+    }
+
 
     render() {
         const { colors } = this.props.theme;
@@ -41,6 +71,7 @@ class ClassUserProfile extends React.Component {
                             <View style={{marginRight: '20%'}}>
                                 <Text style={{fontSize: 40, color: colors.clickableText, textAlign: 'center'}}>{this.user.followers}</Text>
                                 <Text style={{fontSize: 20, color: colors.clickableText, textAlign: 'center'}}>Followers</Text>
+                                <MaterialIcons name={this.state.isAlreadyFav || this.state.favNow ? "favorite" : "favorite-border"} color='red' size={40} onPress={() => this.favUser()} style={{alignSelf: 'center', marginTop: '30%'}} />
                             </View>
                         </TouchableOpacity>
                     </View>
